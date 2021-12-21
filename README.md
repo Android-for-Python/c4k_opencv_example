@@ -7,7 +7,7 @@ Camera4Kivy OpenCV Example
 
 Uses OpenCV to edge detect the image stream, and replaces the usual Preview image with the detection result.
 
-Available on most of the [usual platforms](https://github.com/Android-for-Python/Camera4Kivy/#tested-platforms).
+Available on most of the [usual platforms](https://github.com/Android-for-Python/Camera4Kivy/#tested-examples-and-platforms).
 
 On a desktop the example assumes a builtin camera facing the user, so the Preview is mirrored. If you want to point a freely mounted camera you may want to set the [Camera4Kivy mirror option False]((https://github.com/Android-for-Python/Camera4Kivy/#mirror)). 
 
@@ -15,7 +15,7 @@ The example demonstrates basic usage of the image analysis api. Analyzing image 
 
 # Install
 
-This example depends on Camera4Kivy. **[Read about Camera4Kivy](https://github.com/Android-for-Python/Camera4Kivy#camera4kivy)** because, depending on the platform you may need to install a [camera provider](https://github.com/Android-for-Python/Camera4Kivy#dependencies). 
+This example depends on Camera4Kivy. **[Read about Camera4Kivy](https://github.com/Android-for-Python/Camera4Kivy#camera4kivy)** because, depending on the platform you may need to install a [camera provider](https://github.com/Android-for-Python/camera4kivy#camera-provider). 
 
 ## Windows, MacOS
 
