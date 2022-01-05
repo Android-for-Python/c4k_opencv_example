@@ -45,8 +45,9 @@ class MyApp(App):
         else:
             permission = True
         if permission:
-            self.layout.edge_detect.connect_camera(analyze_resolution = 720,
-                                                   enable_analyze_pixels = True)
+            self.layout.edge_detect.connect_camera(
+                analyze_pixels_resolution = 720,
+                enable_analyze_pixels = True)
 
     def on_start(self):
         Clock.schedule_once(self.connect_camera)
