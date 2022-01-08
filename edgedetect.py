@@ -15,14 +15,15 @@ class EdgeDetect(Preview):
     # Analyze a Frame - NOT on UI Thread
     ####################################
 
-    def analyze_pixels_callback(self, pixels, size, pos, scale, mirror):
+    def analyze_pixels_callback(self, pixels, image_size, image_pos, scale, mirror):
         # pixels : analyze pixels (bytes)
-        # size   : analyze pixels size (w,h)
-        # pos    : location of Texture in Preview (due to letterbox)
+        # image_size   : analyze pixels size (w,h)
+        # image_pos    : location of Texture in Preview (due to letterbox)
         # scale  : scale from Analysis resolution to Preview resolution
         # mirror : true if Preview is mirrored
         
-        rgba   = np.fromstring(pixels, np.uint8).reshape(size[1], size[0], 4)
+        rgba   = np.fromstring(pixels, np.uint8).reshape(image_size[1],
+                                                         image_size[0], 4)
         # Note, analyze_resolution changes the result. Because with a smaller
         # resolution the gradients are higher and more edges are detected.
         
@@ -33,7 +34,7 @@ class EdgeDetect(Preview):
         rgba   = cv2.cvtColor(edges, cv2.COLOR_GRAY2RGBA) 
         pixels = rgba.tostring()
 
-        self.make_thread_safe(pixels, size) 
+        self.make_thread_safe(pixels, image_size) 
 
     @mainthread
     def make_thread_safe(self, pixels, size):
@@ -48,14 +49,15 @@ class EdgeDetect(Preview):
     # Annotate Screen - on UI Thread
     ################################
 
-    def canvas_instructions_callback(self, texture, size, pos):
+    def canvas_instructions_callback(self, texture, tex_size, tex_pos):
         # texture : preview Texture
         # size    : preview Texture size (w,h)
         # pos     : location of Texture in Preview Widget (letterbox)
         # Add the analyzed image
         if self.analyzed_texture:
             Color(1,1,1,1)
-            Rectangle(texture= self.analyzed_texture, size = size, pos = pos)
+            Rectangle(texture= self.analyzed_texture,
+                      size = tex_size, pos = tex_pos)
 
 
 
