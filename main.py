@@ -4,12 +4,10 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.utils import platform
 from kivy.clock import Clock
 from applayout import AppLayout
+from android_permissions import AndroidPermissions
 
 if platform == 'android':
     from jnius import autoclass
-    from android.permissions import request_permissions, check_permission, \
-        Permission
-    from android import api_version
     from android.runnable import run_on_ui_thread
     from android import mActivity
     View = autoclass('android.view.View')
@@ -36,21 +34,19 @@ class MyApp(App):
         self.layout = AppLayout()
         if platform == 'android':
             Window.bind(on_resize=hide_landscape_status_bar)
-            request_permissions([Permission.CAMERA], self.connect_camera)
         return self.layout
 
-    def connect_camera(self,permissions = [],grants = []):
-        if platform == 'android':
-            permission = check_permission(Permission.CAMERA)
-        else:
-            permission = True
-        if permission:
-            self.layout.edge_detect.connect_camera(
-                analyze_pixels_resolution = 720,
-                enable_analyze_pixels = True)
-
     def on_start(self):
+        self.dont_gc = AndroidPermissions(self.start_app)
+
+    def start_app(self):
+        self.dont_gc = None
+        # Can't connect camera till after on_start()
         Clock.schedule_once(self.connect_camera)
+
+    def connect_camera(self,dt):
+        self.layout.edge_detect.connect_camera(analyze_pixels_resolution = 720,
+                                               enable_analyze_pixels = True)
 
     def on_stop(self):
         self.layout.edge_detect.disconnect_camera()
