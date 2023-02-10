@@ -43,8 +43,12 @@ class EdgeDetect(Preview):
            self.analyzed_texture.size[1] != size[1]:
             self.analyzed_texture = Texture.create(size=size, colorfmt='rgba')
             self.analyzed_texture.flip_vertical()
-        self.analyzed_texture.blit_buffer(pixels, colorfmt='rgba') 
-
+        if self.camera_connected:
+            self.analyzed_texture.blit_buffer(pixels, colorfmt='rgba') 
+        else:
+            # Clear local state so no thread related ghosts on re-connect
+            self.analyzed_texture = None
+            
     ################################
     # Annotate Screen - on UI Thread
     ################################
