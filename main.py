@@ -46,7 +46,8 @@ class MyApp(App):
 
     def connect_camera(self,dt):
         self.layout.edge_detect.connect_camera(analyze_pixels_resolution = 720,
-                                               enable_analyze_pixels = True)
+                                               enable_analyze_pixels = True,
+                                               enable_video = False)
 
     def on_stop(self):
         self.layout.edge_detect.disconnect_camera()
