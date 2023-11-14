@@ -3,6 +3,8 @@ Camera4Kivy OpenCV Example
 
 *OpenCV Image Analysis using Camera4Kivy.*
 
+**2023-11-13 This repository is archived.**
+
 # Overview
 
 Uses OpenCV to edge detect the image stream, and replaces the usual Preview image with the detection result.
